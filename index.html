@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Device Value Finder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Device quote comparison workspace">
+        <aside class="quote-form-panel">
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 2v14h6V5H9Zm8 3h-1v8h1V8Z" />
+              </svg>
+            </div>
+            <div>
+              <p class="eyebrow">Swiss resale comparison</p>
+              <h1>Device Value Finder</h1>
+            </div>
+          </div>
+
+          <form id="quote-form" class="device-form">
+            <div class="field-row">
+              <label for="category">Device</label>
+              <select id="category" name="category">
+                <option value="iphone">iPhone</option>
+                <option value="samsung">Samsung Galaxy</option>
+                <option value="ipad">iPad</option>
+                <option value="macbook">MacBook</option>
+              </select>
+            </div>
+
+            <div class="field-row">
+              <label for="model">Model</label>
+              <select id="model" name="model"></select>
+            </div>
+
+            <div class="field-grid">
+              <div class="field-row">
+                <label for="storage">Storage</label>
+                <select id="storage" name="storage">
+                  <option value="64">64 GB</option>
+                  <option value="128" selected>128 GB</option>
+                  <option value="256">256 GB</option>
+                  <option value="512">512 GB</option>
+                  <option value="1024">1 TB</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="age">Age</label>
+                <select id="age" name="age">
+                  <option value="0">Under 1 year</option>
+                  <option value="1" selected>1 year</option>
+                  <option value="2">2 years</option>
+                  <option value="3">3 years</option>
+                  <option value="4">4+ years</option>
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="condition-group">
+              <legend>Condition</legend>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="excellent" checked />
+                <span>
+                  <strong>Excellent</strong>
+                  <small>No visible marks, battery feels strong.</small>
+                </span>
+              </label>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="good" />
+                <span>
+                  <strong>Good</strong>
+                  <small>Light marks, fully working.</small>
+                </span>
+              </label>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="fair" />
+                <span>
+                  <strong>Fair</strong>
+                  <small>Noticeable wear, no major defects.</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <div class="toggle-list" aria-label="Device details">
+              <label><input type="checkbox" id="has-box" checked /> Original box</label>
+              <label><input type="checkbox" id="has-charger" checked /> Charger included</label>
+              <label><input type="checkbox" id="unlocked" checked /> Carrier unlocked</label>
+            </div>
+
+            <button type="submit" class="primary-action">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a7 7 0 1 0 4.45 12.4l3.58 3.57 1.41-1.41-3.57-3.58A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" />
+              </svg>
+              Compare offers
+            </button>
+          </form>
+        </aside>
+
+        <section class="results-panel">
+          <header class="results-header">
+            <div>
+              <p class="eyebrow">Estimated resale value</p>
+              <h2 id="results-title">Best offer across 3 buyers</h2>
+            </div>
+            <div class="confidence-pill" id="confidence-pill">Mock mode</div>
+          </header>
+
+          <div class="summary-grid">
+            <article class="summary-card best">
+              <span>Best offer</span>
+              <strong id="best-value">CHF 0</strong>
+              <small id="best-provider">Run comparison</small>
+            </article>
+            <article class="summary-card">
+              <span>Offer spread</span>
+              <strong id="spread-value">CHF 0</strong>
+              <small>Highest minus lowest</small>
+            </article>
+            <article class="summary-card">
+              <span>Readiness</span>
+              <strong id="readiness-value">92%</strong>
+              <small>Based on device details</small>
+            </article>
+          </div>
+
+          <div id="quotes" class="quote-list" aria-live="polite"></div>
+
+          <section class="integration-panel">
+            <div>
+              <p class="eyebrow">Live integration path</p>
+              <h3>Provider adapters</h3>
+            </div>
+            <div class="adapter-grid">
+              <div>
+                <strong>verkaufen.ch</strong>
+                <span>Quote endpoint placeholder</span>
+              </div>
+              <div>
+                <strong>mobileup.ch</strong>
+                <span>Quote endpoint placeholder</span>
+              </div>
+              <div>
+                <strong>revendo.ch</strong>
+                <span>Quote endpoint placeholder</span>
+              </div>
+            </div>
+            <p class="integration-note">
+              This prototype uses deterministic estimates. A production build should call partner APIs, or
+              use compliant server-side automation only where each provider's terms allow it.
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
