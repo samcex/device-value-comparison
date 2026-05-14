@@ -128,6 +128,7 @@ const form = document.querySelector("#quote-form");
 const categorySelect = document.querySelector("#category");
 const modelSelect = document.querySelector("#model");
 const quotesEl = document.querySelector("#quotes");
+let quoteRequestId = 0;
 
 function formatCHF(value) {
   return new Intl.NumberFormat("de-CH", {
@@ -197,12 +198,12 @@ function getQuotes(device) {
     .map((provider) => ({
       ...provider,
       value: estimateQuote(provider, device),
+      source: "Estimate",
     }))
     .sort((a, b) => b.value - a.value);
 }
 
-function renderQuotes(device) {
-  const quotes = getQuotes(device);
+function updateSummary(device, quotes) {
   const best = quotes[0];
   const lowest = quotes[quotes.length - 1];
   const readiness = calculateReadiness(device);
@@ -212,8 +213,13 @@ function renderQuotes(device) {
   document.querySelector("#best-provider").textContent = best.name;
   document.querySelector("#spread-value").textContent = formatCHF(best.value - lowest.value);
   document.querySelector("#readiness-value").textContent = `${readiness}%`;
-  document.querySelector("#confidence-pill").textContent = `${device.condition} condition`;
+  document.querySelector("#confidence-pill").textContent = quotes.some((quote) => quote.source === "Live")
+    ? "Live + estimate"
+    : `${device.condition} condition`;
+}
 
+function renderQuoteCards(quotes) {
+  const best = quotes[0];
   quotesEl.replaceChildren(
     ...quotes.map((quote, index) => {
       const article = document.createElement("article");
@@ -233,6 +239,7 @@ function renderQuotes(device) {
           </div>
           <div class="quote-meta">
             <span class="meta-chip">${quote.speed}</span>
+            <span class="meta-chip">${quote.source}</span>
             <span class="meta-chip">${percentage}% of top offer</span>
             <span class="meta-chip">${index === 0 ? "Best value" : `${formatCHF(best.value - quote.value)} below best`}</span>
           </div>
@@ -247,17 +254,60 @@ function renderQuotes(device) {
   );
 }
 
+function renderQuotes(device, quotes = getQuotes(device)) {
+  const sortedQuotes = [...quotes].sort((a, b) => b.value - a.value);
+  updateSummary(device, sortedQuotes);
+  renderQuoteCards(sortedQuotes);
+  return sortedQuotes;
+}
+
+async function applyLiveQuotes(device, quotes, requestId) {
+  const liveUrl = new URL("/api/quote", window.location.origin);
+  liveUrl.searchParams.set("provider", "verkaufen");
+  liveUrl.searchParams.set("model", device.model);
+  liveUrl.searchParams.set("storage", String(device.storage));
+  liveUrl.searchParams.set("condition", device.condition);
+
+  try {
+    const response = await fetch(liveUrl);
+    if (!response.ok) return;
+    const liveQuote = await response.json();
+    if (requestId !== quoteRequestId || typeof liveQuote.value !== "number") return;
+
+    const updatedQuotes = quotes.map((quote) =>
+      quote.id === "verkaufen"
+        ? {
+            ...quote,
+            value: liveQuote.value,
+            source: "Live",
+            inspection: `Live calculator: ${liveQuote.valueText}`,
+          }
+        : quote,
+    );
+    renderQuotes(device, updatedQuotes);
+  } catch {
+    // Keep local estimates if the live provider endpoint is unavailable.
+  }
+}
+
 categorySelect.addEventListener("change", () => {
   populateModels();
-  renderQuotes(getSelectedDevice());
+  refreshQuotes();
 });
 
-form.addEventListener("change", () => renderQuotes(getSelectedDevice()));
+function refreshQuotes() {
+  const device = getSelectedDevice();
+  const requestId = ++quoteRequestId;
+  const quotes = renderQuotes(device);
+  applyLiveQuotes(device, quotes, requestId);
+}
+
+form.addEventListener("change", refreshQuotes);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  renderQuotes(getSelectedDevice());
+  refreshQuotes();
 });
 
 populateModels();
-renderQuotes(getSelectedDevice());
+refreshQuotes();
