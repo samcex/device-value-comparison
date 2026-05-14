@@ -262,32 +262,39 @@ function renderQuotes(device, quotes = getQuotes(device)) {
 }
 
 async function applyLiveQuotes(device, quotes, requestId) {
-  const liveUrl = new URL("/api/quote", window.location.origin);
-  liveUrl.searchParams.set("provider", "verkaufen");
-  liveUrl.searchParams.set("model", device.model);
-  liveUrl.searchParams.set("storage", String(device.storage));
-  liveUrl.searchParams.set("condition", device.condition);
+  let updatedQuotes = [...quotes];
+  const providers = ["verkaufen", "mobileup"];
 
-  try {
-    const response = await fetch(liveUrl);
-    if (!response.ok) return;
-    const liveQuote = await response.json();
-    if (requestId !== quoteRequestId || typeof liveQuote.value !== "number") return;
+  await Promise.all(
+    providers.map(async (provider) => {
+      const liveUrl = new URL("/api/quote", window.location.origin);
+      liveUrl.searchParams.set("provider", provider);
+      liveUrl.searchParams.set("model", device.model);
+      liveUrl.searchParams.set("storage", String(device.storage));
+      liveUrl.searchParams.set("condition", device.condition);
 
-    const updatedQuotes = quotes.map((quote) =>
-      quote.id === "verkaufen"
-        ? {
-            ...quote,
-            value: liveQuote.value,
-            source: "Live",
-            inspection: `Live calculator: ${liveQuote.valueText}`,
-          }
-        : quote,
-    );
-    renderQuotes(device, updatedQuotes);
-  } catch {
-    // Keep local estimates if the live provider endpoint is unavailable.
-  }
+      try {
+        const response = await fetch(liveUrl);
+        if (!response.ok) return;
+        const liveQuote = await response.json();
+        if (requestId !== quoteRequestId || typeof liveQuote.value !== "number") return;
+
+        updatedQuotes = updatedQuotes.map((quote) =>
+          quote.id === provider
+            ? {
+                ...quote,
+                value: liveQuote.value,
+                source: "Live",
+                inspection: `Live calculator: ${liveQuote.valueText}`,
+              }
+            : quote,
+        );
+        renderQuotes(device, updatedQuotes);
+      } catch {
+        // Keep local estimates if the live provider endpoint is unavailable.
+      }
+    }),
+  );
 }
 
 categorySelect.addEventListener("change", () => {
