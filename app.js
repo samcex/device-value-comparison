@@ -1,57 +1,57 @@
 const modelCatalog = {
   iphone: [
-    { name: "iPhone 15 Pro Max", base: 780 },
-    { name: "iPhone 15 Pro", base: 690 },
-    { name: "iPhone 15 Plus", base: 610 },
-    { name: "iPhone 15", base: 560 },
-    { name: "iPhone 14 Pro Max", base: 570 },
-    { name: "iPhone 14 Pro", base: 500 },
-    { name: "iPhone 14 Plus", base: 390 },
-    { name: "iPhone 14", base: 360 },
-    { name: "iPhone 13 Pro Max", base: 440 },
-    { name: "iPhone 13 Pro", base: 390 },
-    { name: "iPhone 13 Mini", base: 280 },
-    { name: "iPhone 13", base: 310 },
-    { name: "iPhone 12 Pro Max", base: 340 },
-    { name: "iPhone 12 Pro", base: 300 },
-    { name: "iPhone 12 Mini", base: 190 },
-    { name: "iPhone 12", base: 230 },
-    { name: "iPhone 11 Pro Max", base: 250 },
-    { name: "iPhone 11 Pro", base: 220 },
-    { name: "iPhone 11", base: 170 },
-    { name: "iPhone XS Max", base: 150 },
-    { name: "iPhone XS", base: 125 },
-    { name: "iPhone XR", base: 120 },
-    { name: "iPhone SE 3rd Gen", base: 135 },
-    { name: "iPhone SE 2nd Gen", base: 80 },
+    { name: "iPhone 15 Pro Max", base: 515 },
+    { name: "iPhone 15 Pro", base: 455 },
+    { name: "iPhone 15 Plus", base: 375 },
+    { name: "iPhone 15", base: 345 },
+    { name: "iPhone 14 Pro Max", base: 360 },
+    { name: "iPhone 14 Pro", base: 310 },
+    { name: "iPhone 14 Plus", base: 245 },
+    { name: "iPhone 14", base: 225 },
+    { name: "iPhone 13 Pro Max", base: 255 },
+    { name: "iPhone 13 Pro", base: 225 },
+    { name: "iPhone 13 Mini", base: 145 },
+    { name: "iPhone 13", base: 165 },
+    { name: "iPhone 12 Pro Max", base: 185 },
+    { name: "iPhone 12 Pro", base: 160 },
+    { name: "iPhone 12 Mini", base: 90 },
+    { name: "iPhone 12", base: 110 },
+    { name: "iPhone 11 Pro Max", base: 120 },
+    { name: "iPhone 11 Pro", base: 105 },
+    { name: "iPhone 11", base: 82 },
+    { name: "iPhone XS Max", base: 65 },
+    { name: "iPhone XS", base: 55 },
+    { name: "iPhone XR", base: 52 },
+    { name: "iPhone SE 3rd Gen", base: 75 },
+    { name: "iPhone SE 2nd Gen", base: 38 },
   ],
   samsung: [
-    { name: "Galaxy S25 Ultra", base: 760 },
-    { name: "Galaxy S25+", base: 640 },
-    { name: "Galaxy S25", base: 570 },
-    { name: "Galaxy S24 Ultra", base: 650 },
-    { name: "Galaxy S24+", base: 560 },
-    { name: "Galaxy S24", base: 500 },
-    { name: "Galaxy S23 Ultra", base: 430 },
-    { name: "Galaxy S23+", base: 350 },
-    { name: "Galaxy S23", base: 320 },
-    { name: "Galaxy S23 FE", base: 230 },
-    { name: "Galaxy S22 Ultra", base: 340 },
-    { name: "Galaxy S22+", base: 290 },
-    { name: "Galaxy S22", base: 260 },
-    { name: "Galaxy S21 Ultra", base: 260 },
-    { name: "Galaxy S21+", base: 210 },
-    { name: "Galaxy S21", base: 190 },
-    { name: "Galaxy S21 FE", base: 160 },
-    { name: "Galaxy Z Fold6", base: 780 },
-    { name: "Galaxy Z Fold5", base: 610 },
-    { name: "Galaxy Z Fold4", base: 430 },
-    { name: "Galaxy Z Flip6", base: 520 },
-    { name: "Galaxy Z Flip5", base: 390 },
-    { name: "Galaxy Z Flip4", base: 250 },
-    { name: "Galaxy A55", base: 190 },
-    { name: "Galaxy A54", base: 150 },
-    { name: "Galaxy A53", base: 115 },
+    { name: "Galaxy S25 Ultra", base: 555 },
+    { name: "Galaxy S25+", base: 460 },
+    { name: "Galaxy S25", base: 395 },
+    { name: "Galaxy S24 Ultra", base: 440 },
+    { name: "Galaxy S24+", base: 360 },
+    { name: "Galaxy S24", base: 320 },
+    { name: "Galaxy S23 Ultra", base: 285 },
+    { name: "Galaxy S23+", base: 225 },
+    { name: "Galaxy S23", base: 205 },
+    { name: "Galaxy S23 FE", base: 145 },
+    { name: "Galaxy S22 Ultra", base: 210 },
+    { name: "Galaxy S22+", base: 175 },
+    { name: "Galaxy S22", base: 155 },
+    { name: "Galaxy S21 Ultra", base: 150 },
+    { name: "Galaxy S21+", base: 120 },
+    { name: "Galaxy S21", base: 105 },
+    { name: "Galaxy S21 FE", base: 90 },
+    { name: "Galaxy Z Fold6", base: 590 },
+    { name: "Galaxy Z Fold5", base: 430 },
+    { name: "Galaxy Z Fold4", base: 285 },
+    { name: "Galaxy Z Flip6", base: 365 },
+    { name: "Galaxy Z Flip5", base: 260 },
+    { name: "Galaxy Z Flip4", base: 155 },
+    { name: "Galaxy A55", base: 115 },
+    { name: "Galaxy A54", base: 90 },
+    { name: "Galaxy A53", base: 65 },
   ],
   ipad: [
     { name: "iPad Pro 13 M4", base: 980 },
@@ -89,24 +89,24 @@ const providerAdapters = [
     name: "verkaufen.ch",
     speed: "Fast bank transfer",
     inspection: "Standard condition check",
-    payoutBias: 1.01,
-    categoryBias: { iphone: 1.02, samsung: 0.97, ipad: 1, macbook: 0.99 },
+    payoutBias: 1,
+    categoryBias: { iphone: 1, samsung: 0.96, ipad: 0.98, macbook: 0.98 },
   },
   {
     id: "mobileup",
     name: "mobileup.ch",
     speed: "Prepaid shipping label",
     inspection: "Strong mobile-device pricing",
-    payoutBias: 0.99,
-    categoryBias: { iphone: 1.01, samsung: 1.04, ipad: 0.98, macbook: 0.94 },
+    payoutBias: 0.98,
+    categoryBias: { iphone: 1.01, samsung: 1.03, ipad: 0.97, macbook: 0.92 },
   },
   {
     id: "revendo",
     name: "revendo.ch",
     speed: "Store and shipping options",
     inspection: "Apple-focused refurbishment",
-    payoutBias: 1,
-    categoryBias: { iphone: 1, samsung: 0.92, ipad: 1.03, macbook: 1.06 },
+    payoutBias: 0.99,
+    categoryBias: { iphone: 1.03, samsung: 0.9, ipad: 1.01, macbook: 1.04 },
   },
 ];
 
@@ -178,8 +178,9 @@ function calculateReadiness(device) {
 }
 
 function estimateQuote(provider, device) {
-  const accessoryBoost = (device.hasBox ? 12 : 0) + (device.hasCharger ? 10 : 0) + (device.unlocked ? 18 : -24);
-  const agePenalty = Math.max(0.52, 1 - device.age * 0.13);
+  const accessoryAdjustment = (device.hasBox ? 4 : 0) + (device.hasCharger ? 4 : 0) + (device.unlocked ? 8 : -16);
+  const agePenalty = Math.max(0.78, 1 - device.age * 0.05);
+  const providerAdjustment = { verkaufen: -2, mobileup: -2, revendo: 5 }[provider.id] ?? 0;
   const baseline =
     device.base *
     storageMultiplier[device.storage] *
@@ -188,8 +189,7 @@ function estimateQuote(provider, device) {
     provider.payoutBias *
     provider.categoryBias[device.category];
 
-  const deterministicVariance = provider.id.length * 3 + device.model.length + device.storage / 64;
-  return Math.max(40, Math.round((baseline + accessoryBoost + deterministicVariance) / 5) * 5);
+  return Math.max(20, Math.round((baseline + accessoryAdjustment + providerAdjustment) / 5) * 5);
 }
 
 function getQuotes(device) {
